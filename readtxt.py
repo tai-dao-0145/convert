@@ -9,7 +9,7 @@ import fitz
 
 
 
-with open('fileTxt/3.txt', 'r') as file:
+with open('fileTxt/5.txt', 'r') as file:
     page_content = file.read()
 
 print(page_content)
@@ -41,7 +41,7 @@ def convertToExcel10(textC):
         df = pd.DataFrame(nltk.pos_tag(text), columns=['Word', 'POS'])
         df.to_excel('dataExcel/3.xlsx', index=True)
         print("Success")
-convertToExcel10(page_content)
+# convertToExcel10(page_content)
 
 
 
