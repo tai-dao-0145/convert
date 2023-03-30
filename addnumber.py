@@ -1,7 +1,7 @@
 import pandas as pd
 
 # Đọc file excel vào DataFrame
-data_frame = pd.read_excel('dataExcel/JD.xlsx')
+data_frame = pd.read_excel('dataExcel/data_cv.xlsx')
 # Khởi tạo một list rỗng để lưu giá trị cho cột mới
 values_for_new_column = []
 i = 1
@@ -13,4 +13,4 @@ for value in data_frame['Word']:
 data_frame['Sentence #'] = values_for_new_column
 
 # Lưu DataFrame đã được thêm cột mới vào file Excel
-data_frame.to_excel('dataExcel/JD2.xlsx', index=False)
+data_frame.to_excel('dataExcel/new_data.xlsx', index=False)
