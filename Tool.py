@@ -5,26 +5,43 @@ from nltk.tokenize import word_tokenize
 from pdfreader import SimplePDFViewer
 import re
 import fitz
+from pdfminer.high_level import extract_text
 
 
+def convert_pdf_to_text(file_pdf):
+    with open(file_pdf, 'rb') as pdf_file:
+        text = extract_text(pdf_file)
+        text = text.replace('\n', '')
+        text = text.replace('…', '.')
+        text = text.replace('. .', '.')
+        text = text.replace('...', '.')
+        text = text.replace('..', '.')
+        text = re.sub(r"[•·●•;]", '.', text)
+        text = re.sub(r"[©]", '', text)
+    return text
+print(convert_pdf_to_text('CV/11.pdf'))
+def convertPDFToText(filename):
+    link = r"CV/" + filename + ".pdf"
+    with fitz.open(link) as pdf_file:
+        for page in pdf_file:
+            page_content = page.get_text()
+            # page_content = re.sub(r'[():""\n]', '', page_content)
+            # page_content = re.sub(r'\n\s*\n', '\n', page_content)
 
-
-# def convertPDFToText(filename):
-#     link = r"CV/" + filename + ".pdf"
-#     with fitz.open(link) as pdf_file:
-#         for page in pdf_file:
-#             page_content = page.get_text()
-#             page_content = re.sub(r'[():""\n]', '', page_content)
-#             page_content = re.sub(r'\n\s*\n', '\n', page_content)
-#             page_content = re.sub(r"[•·●•;]", '.', page_content)
-#             # page_content = page_content.replace('Job description', 'Job description .')
-#             page_content = page_content.replace('…', '.')
-#             page_content = page_content.replace('. .', '.')
-#             page_content = page_content.replace('...', '.')
-#             page_content = page_content.replace('..', '.')
-#             with open('dataTxt/' + filename + ".txt", 'a', encoding="utf-8") as file:
-#                 file.write(page_content)
-#             print(page_content)
+            # page_content = page_content.replace('Job description', 'Job description .')
+            page_content = page_content.replace('\n', '')
+            page_content = page_content.replace('…', '.')
+            page_content = page_content.replace('. .', '.')
+            page_content = page_content.replace('...', '.')
+            page_content = page_content.replace('..', '.')
+            page_content = re.sub(r"[•·●•;]", '.', page_content)
+            page_content = re.sub(r"[©]", '', page_content)
+            # with open('dataTxt/' + filename + ".txt", 'a', encoding="utf-8") as file:
+            #     file.write(page_content)
+            print(page_content)
+print("######")
+print("######")
+convertPDFToText("11")
 
 # for i in range(1, 42, 1):
 #     convertPDFToText(str(i))
@@ -46,11 +63,11 @@ def convertToExcel10(textC):
         print("Success")
 
 
-for i in range(1, 23, 1):
-    file = r"fileTxt/" + str(i) + ".txt"
-    with open(file, 'r', encoding="utf8") as f:
-        content = f.read()
-    convertToExcel10(content)
+# for i in range(1, 23, 1):
+#     file = r"fileTxt/" + str(i) + ".txt"
+#     with open(file, 'r', encoding="utf8") as f:
+#         content = f.read()
+#     convertToExcel10(content)
 
 
 # for i in range(1, 42, 1):
